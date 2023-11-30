@@ -1,3 +1,25 @@
+### This is the source code for plotting the Figure 2 and 3.
+## Manhattan Plot (Figure 2)
+library(data.table)
+library(CMplot)
+library(openxlsx)
+
+hg19_data <- data.table::fread("glist-hg19")
+snp_data <- data.table::fread("SNP.txt")
+MR_data <- read.xlsx("result_Iceland.xlsx",sheet = "mr")
+MR_data1 <- merge(MR_data, hg19_data, by.x = "exposure", by.y = "V4")
+MR_data2 <- MR_data1[,c(1,10,11,9)]
+protein1 <- MR_data2[order(MR_data2$pval),]
+protein_top <- protein1$exposure[1:25]
+
+set.seed(666666)
+CMplot(MR_data2, plot.type="m",LOG10=TRUE,
+       col=c("#3E0A52", "#423D77"),  
+       highlight=protein_top,
+       highlight.cex=1,highlight.pch=c(15:17), 
+       highlight.text=protein_top,      
+       amplify=FALSE,file="tiff",file.name="PIC",dpi=300,file.output=TRUE,verbose=TRUE,width=14,height=6)
+
 ## Forest Plot (Figure 3)
 ## The source data are the outputs of main_MR.R
 BiocManager::install("forestplot")
@@ -229,24 +251,3 @@ p6 <- edit_plot(p6,
 
 p6 <- add_border(p6, part = "header", row = 2, where = "top")
 p6
-
-## Manhattan Plot (Figure 2)
-library(data.table)
-library(CMplot)
-library(openxlsx)
-
-hg19_data <- data.table::fread("glist-hg19")
-snp_data <- data.table::fread("SNP.txt")
-MR_data <- read.xlsx("result_Iceland.xlsx",sheet = "mr")
-MR_data1 <- merge(MR_data, hg19_data, by.x = "exposure", by.y = "V4")
-MR_data2 <- MR_data1[,c(1,10,11,9)]
-protein1 <- MR_data2[order(MR_data2$pval),]
-protein_top <- protein1$exposure[1:25]
-
-set.seed(666666)
-CMplot(MR_data2, plot.type="m",LOG10=TRUE,
-       col=c("#3E0A52", "#423D77"),  
-       highlight=protein_top,
-       highlight.cex=1,highlight.pch=c(15:17), 
-       highlight.text=protein_top,      
-       amplify=FALSE,file="tiff",file.name="PIC",dpi=300,file.output=TRUE,verbose=TRUE,width=14,height=6)
