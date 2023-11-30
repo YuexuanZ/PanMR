@@ -1,4 +1,4 @@
-## This is the source code for analysis results of Figure 3
+## This is the source code for the analysis results of Figure 3
 library(TwoSampleMR);library(data.table)
 library(ieugwasr)
 library(plinkbinr)
