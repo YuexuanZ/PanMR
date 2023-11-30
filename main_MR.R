@@ -1,3 +1,4 @@
+## This is the source code for analysis results of Figure 3
 library(TwoSampleMR);library(data.table)
 library(ieugwasr)
 library(plinkbinr)
@@ -69,6 +70,20 @@ exp_dat <- ld_clump(
 )
 ld_PRSS1 <- PRSS1[match(exp_dat$rsid, PRSS1$SNP),]
 
+
+## Pancreatic benign neoplasm: 
+## Pancreatic cancer: finn-b-CD2_BENIGN_PANCREAS_EXALLC
+## Chronic pancreatitis: ieu-a-822
+## Alcohol-induced chronic pancreatitis: finn-b-K11_CHRONPANC
+## Acute pancreatitis: finn-b-ALCOPANCCHRON
+## Acohol-induced acute pancreatitis: finn-b-K11_ACUTPANC
+## Serum Iron Measurement: finn-b-ALCOPANCACU
+## Ferritin: prot-a-1149
+## Transferrin: prot-c-4162_54_2
+## Lactotransferrin: prot-a-1808
+## Transferrin Saturation: ieu-a-1051
+## Pancreas fat: ebi-a-GCST90016675
+## Pancreas volume: ebi-a-GCST90016669
 ids<-as.character(unlist(read.table("outcome.id.txt",header=F)))
 outcome_dat<- extract_outcome_data(
   snps = ld_PRSS1$SNP,
