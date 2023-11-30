@@ -4,3 +4,9 @@ finn-b-K11_CHRONPANC
 finn-b-ALCOPANCCHRON
 finn-b-K11_ACUTPANC
 finn-b-ALCOPANCACU
+prot-a-1149
+prot-c-4162_54_2
+prot-a-1808
+ieu-a-1051
+ebi-a-GCST90016675
+ebi-a-GCST90016669
