@@ -46,9 +46,10 @@ mainMR_risk_factors <- function(exp_dat, out_dat, expName, outName, samplesize.o
   }
 }
 
-# PRSS1
-# GWAS summary data is available at https://www.decode.com/summarydata/
-pqtl_data <- as.data.frame(data.table::fread("3049_61_PRSS1_Trypsin.txt.gz"))
+# PRSS1 (the same for AMY2A and CELA2A)
+# GWAS summary data is available at https://www.jianguoyun.com/p/DZPUMToQ2IWVDBiHhqkFIAA
+# the file names are Instruments_PRSS1.txt.gz, Instruments_AMY2A.txt.gz and Instruments_CELA2A.txt.gz 
+pqtl_data <- as.data.frame(data.table::fread("Instruments_PRSS1.txt.gz"))
 anno_data <- as.data.frame(data.table::fread("assocvariants.annotated.txt.gz"))
 pqtl_data$eaf <- anno_data$effectAlleleFreq[match(pqtl_data$Name, anno_data$Name)]
 
