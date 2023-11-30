@@ -1,4 +1,5 @@
 ## This is the source code for the analysis results of Figure 3 and the reverse MR analysis.
+## All data are available at https://www.jianguoyun.com/p/DZPUMToQ2IWVDBiHhqkFIAA
 library(TwoSampleMR);library(data.table)
 library(ieugwasr)
 library(plinkbinr)
@@ -49,7 +50,6 @@ mainMR_risk_factors <- function(exp_dat, out_dat, expName, outName, samplesize.o
 
 ## For Figure 3
 # PRSS1 (the same for AMY2A and CELA2A)
-# GWAS summary data is available at https://www.jianguoyun.com/p/DZPUMToQ2IWVDBiHhqkFIAA
 # the file names are Instruments_PRSS1.txt.gz, Instruments_AMY2A.txt.gz and Instruments_CELA2A.txt.gz 
 pqtl_data <- as.data.frame(data.table::fread("Instruments_PRSS1.txt.gz"))
 anno_data <- as.data.frame(data.table::fread("assocvariants.annotated.txt.gz"))
