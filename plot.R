@@ -1,4 +1,4 @@
-## Forest Plot
+## Forest Plot (Figure 3)
 ## The source data are the outputs of main_MR.R
 BiocManager::install("forestplot")
 library(forestplot)
@@ -6,7 +6,7 @@ library(forestploter)
 library(grid)
 
 ############ PRSS1
-Data_str <- read.csv("data_1.csv")
+Data_str <- read.csv("PRSS1.myres1.csv")
 ## Odds Ratio and 95%CI
 Data_str$`Odds Ratio (95%CI)` <- ifelse(is.na(Data_str$OR), "",
                                         sprintf("%.2f (%.2f - %.2f)",
@@ -45,7 +45,7 @@ p1
 
 ############ PRSS1
 
-Data_str2 <- read.csv("data_2.csv")
+Data_str2 <- read.csv("PRSS1.myres2.csv")
 Data_str2$`Beta (95%CI)` <- ifelse(is.na(Data_str2$Beta), "",
                                    sprintf("%.2f (%.2f - %.2f)",
                                            Data_str2$Beta, Data_str2$lower, Data_str2$upper))
@@ -83,7 +83,7 @@ p2 <- add_border(p2, part = "header", row = 2, where = "top")
 p2
 
 ############## CELA2A
-Data_str3 <- read.csv("data_3.csv")
+Data_str3 <- read.csv("CELA2A.myres1.csv")
 Data_str3$`Odds Ratio (95%CI)` <- ifelse(is.na(Data_str3$OR), "",
                                          sprintf("%.2f (%.2f - %.2f)",
                                                  Data_str3$OR, Data_str3$lower, Data_str3$upper))
@@ -119,7 +119,7 @@ p3 <- add_border(p3, part = "header", row = 2, where = "top")
 p3
 
 ############## CELA2A
-Data_str4 <- read.csv("data_4.csv")
+Data_str4 <- read.csv("CELA2A.myres2.csv")
 Data_str4$`Beta (95%CI)` <- ifelse(is.na(Data_str4$Beta), "",
                                    sprintf("%.2f (%.2f - %.2f)",
                                            Data_str4$Beta, Data_str4$lower, Data_str4$upper))
@@ -158,7 +158,7 @@ p4
 
 
 ############# AMY2A 
-Data_str5 <- read.csv("data_5.csv")
+Data_str5 <- read.csv("AMY2A.myres1.csv")
 Data_str5$`Odds Ratio (95%CI)` <- ifelse(is.na(Data_str5$OR), "",
                                          sprintf("%.2f (%.2f - %.2f)",
                                                  Data_str5$OR, Data_str5$lower, Data_str5$upper))
@@ -194,7 +194,7 @@ p5 <- add_border(p5, part = "header", row = 2, where = "top")
 p5
 
 ################### AMY2A 
-Data_str6 <- read.csv("data_6.csv")
+Data_str6 <- read.csv("AMY2A.myres2.csv")
 Data_str6$`Beta (95%CI)` <- ifelse(is.na(Data_str6$Beta), "",
                                    sprintf("%.2f (%.2f - %.2f)",
                                            Data_str6$Beta, Data_str6$lower, Data_str6$upper))
