@@ -1,10 +1,10 @@
 ## This is the source code for the analysis results of Table 1
+## All data are available at https://www.jianguoyun.com/p/DZPUMToQ2IWVDBiHhqkFIAA
 library(TwoSampleMR)
 library(data.table)
 library("readxl")
 
 # Instruments of Iceland
-# the data is available at https://www.jianguoyun.com/p/DZPUMToQ2IWVDBiHhqkFIAA
 Ins <- read_excel("Instruments_for_Iceland_proteins.xlsx",1)
 
 # exposure
@@ -25,12 +25,10 @@ perform_format <- function(root_data){
   return (gwas)
   }
 ## pancreatic iron content
-# the data is available at https://www.jianguoyun.com/p/DZPUMToQ2IWVDBiHhqkFIAA
 PIC_gwas <- perform_format("Pancreas_iron_content_GCST90016676.tsv.gz")
 PIC_gwas <- format_data(PIC_gwas, "outcome", snp_col = "SNP", beta_col = "BETA", se_col = "SE",
                     eaf_col = "FRQ", effect_allele_col = "A2", other_allele_col = "A1", pval_col = "P")
 ## pancreatic cancer
-# the data is available at https://www.jianguoyun.com/p/DZPUMToQ2IWVDBiHhqkFIAA
 pan_gwas <- as.data.frame(data.table::fread("Pancreatic_cancer_Finngen.gz"))
 pan_gwas <- format_data(pan_gwas, "outcome", snp_col = "rsids", beta_col = "beta", se_col = "sebeta",
                     eaf_col = "af_alt", effect_allele_col = "alt", other_allele_col = "alt", pval_col = "pval")
