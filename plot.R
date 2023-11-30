@@ -1,4 +1,5 @@
 ## Forest Plot
+## The source data are the outputs of main_MR.R
 BiocManager::install("forestplot")
 library(forestplot)
 library(forestploter)
