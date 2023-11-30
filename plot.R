@@ -230,7 +230,7 @@ p6 <- edit_plot(p6,
 p6 <- add_border(p6, part = "header", row = 2, where = "top")
 p6
 
-## Manhattan Plot
+## Manhattan Plot (Figure 2)
 library(data.table)
 library(CMplot)
 library(openxlsx)
@@ -245,7 +245,7 @@ protein_top <- protein1$exposure[1:25]
 
 set.seed(666666)
 CMplot(MR_data2, plot.type="m",LOG10=TRUE,
-       col=c("#3E0A52", "#423D77"),  # color
+       col=c("#3E0A52", "#423D77"),  
        highlight=protein_top,
        highlight.cex=1,highlight.pch=c(15:17), 
        highlight.text=protein_top,      
