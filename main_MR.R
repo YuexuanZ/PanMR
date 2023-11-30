@@ -47,6 +47,7 @@ mainMR_risk_factors <- function(exp_dat, out_dat, expName, outName, samplesize.o
   }
 }
 
+## For Figure 3
 # PRSS1 (the same for AMY2A and CELA2A)
 # GWAS summary data is available at https://www.jianguoyun.com/p/DZPUMToQ2IWVDBiHhqkFIAA
 # the file names are Instruments_PRSS1.txt.gz, Instruments_AMY2A.txt.gz and Instruments_CELA2A.txt.gz 
@@ -95,3 +96,57 @@ PRSS1_out <- format_data(outcome_dat, "outcome", snp_col = "SNP", beta_col = "be
 myres <- mainMR_risk_factors(exp_dat = ld_PRSS1, out_dat = PRSS1_out, expName = "PRSS1", 
                               outName = "PRSS1_GWAS", samplesize.outcome = 10000)
 fwrite(myres, paste0("PRSS1.myres.csv"))
+
+## For reverse MR of PRSS1, AMY2A and CELA2A
+pqtl_data <- as.data.frame(data.table::fread("Instruments_PRSS1.txt.gz"))
+pqtl_data2 <- as.data.frame(data.table::fread("assocvariants.annotated.txt.gz"))
+pqtl_data$eaf <- pqtl_data2$effectAlleleFreq[match(pqtl_data$Name, pqtl_data2$Name)]
+
+pqtl <- TwoSampleMR::format_data(pqtl_data, "exposure", snp_col = "rsids", beta_col = "Beta", se_col = "SE",
+                                    effect_allele_col = "effectAllele", other_allele_col = "otherAllele", 
+                                    eaf_col = "eaf", pval_col = "Pval")
+p_threshold <- 5e-8
+kb <- 10000
+r2 <- 0.001
+pqtl_data_2 <- pqtl[which(pqtl$pval.exposure < p_threshold), ]
+exp_dat <- ld_clump(
+  dplyr::tibble(rsid=pqtl_data_2$SNP, pval=pqtl_data_2$pval.exposure, id=pqtl_data_2$id.exposure),
+  clump_kb = kb,
+  clump_r2 = r2,
+  plink_bin = "plink_Windows.exe",
+  bfile = "EUR"
+)
+ld_pqtl <- pqtl_data_2[match(exp_dat$rsid, pqtl_data_2$SNP),]
+
+pic_data <- data.table::fread("Pancreas_iron_content_GCST90016676.tsv.gz")
+pic <- TwoSampleMR::format_data(pic_data, "exposure", snp_col = "rsids", beta_col = "Beta", se_col = "SE",
+                                    effect_allele_col = "effectAllele", other_allele_col = "otherAllele", 
+                                    eaf_col = "eaf", pval_col = "Pval")
+p_threshold <- 0.05
+kb <- 10000
+r2 <- 0.001
+pic_data_2 <- pic[which(pic$pval.exposure < p_threshold), ]
+exp_dat <- ld_clump(
+  dplyr::tibble(rsid=pic_data_2$SNP, pval=pic_data_2$pval.exposure, id=pic_data_2$id.exposure),
+  clump_kb = kb,
+  clump_r2 = r2,
+  plink_bin = "plink_Windows.exe",
+  bfile = "EUR"
+)
+ld_pic <- pic_data_2[match(exp_dat$rsid, pic_data_2$SNP),]
+position <- Reduce(intersect,list(ld_pqtl$exposure,ld_pic$exposure))
+overlap <- data1[which(data1$exposure == position[1]),]
+
+position <- Reduce(intersect,list(ld_pqtl$exposure,ld_pic$exposure))
+overlap <- data1[which(data1$exposure == position[1]),]
+pic_snp <- ld_pic[-which(ld_pic$exposure == position[1]),]
+for (i in 2:length(position)){
+  pic_snp <- pic_snp[-which(pic_snp$exposure == position[i]),]
+}
+pqtl_out2 <- pqtl_data[which(pqtl_data$variant_id%in%pic_snp$SNP), ]
+pqtl_out2 <- format_data(pqtl_out2, "outcome", snp_col = "variant_id", beta_col = "beta", se_col = "standard_error",
+                        eaf_col = "eaf", effect_allele_col = "effect_allele", other_allele_col = "other_allele", pval_col = "p_value"
+)
+myres1 <- mainMR_risk_factors(exp_dat = pic_snp, out_dat = pqtl_out2, expName = "pic", 
+                              outName = "prss1", samplesize.outcome = 10000)
+fwrite(myres1, paste0("pic.prss1.csv"))
