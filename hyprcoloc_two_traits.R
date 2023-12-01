@@ -1,5 +1,5 @@
 ## This is the source code for colocalization analysis
-## All data are available at 
+## All data are available at https://www.jianguoyun.com/p/DZPUMToQ2IWVDBiHhqkFIAA
 library(usethis)
 library(devtools)
 library(hyprcoloc)
