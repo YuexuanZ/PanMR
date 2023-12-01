@@ -1,4 +1,4 @@
-## This is the source code for colocalization analysis
+## This is the source code for colocalization analysis in Table 1.
 ## All data are available at https://www.jianguoyun.com/p/DZPUMToQ2IWVDBiHhqkFIAA
 library(usethis)
 library(devtools)
