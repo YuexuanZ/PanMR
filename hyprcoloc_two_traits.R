@@ -1,4 +1,5 @@
-
+## This is the source code for colocalization analysis
+## All data are available at 
 library(usethis)
 library(devtools)
 library(hyprcoloc)
